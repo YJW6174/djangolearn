@@ -1,24 +1,24 @@
-<div id="change-password-dialog" style="display:none">
+<div id="change-password-dialog">
     <form id="change-password-form" method="post" class="mws-form" action=''>
     {{  username }}
-        {% csrf_token %}
-        {% if form.non_field_errors %}
-            <div id="mws-validate-error" class="mws-form-message error">{{ form.non_field_errors }}</div>
-        {% endif %}
-        <div class="mws-form-inline">
-            <div class="mws-form-row">
+{#        {% csrf_token %}#}
+{#        {% if form.non_field_errors %}#}
+{#            <div id="mws-validate-error" class="mws-form-message error">{{ form.non_field_errors }}</div>#}
+{#        {% endif %}#}
+        <div class="mws-form-inline ">
+            <div class="mws-form-row form-control">
                 <label class="mws-form-label">新密码</label>
                 <div class="mws-form-item large">
-                    <input type="password" name='newpassword' id='newpassword' style="width:120px;"/>
+                    <input type="password" name='newpwd' id='newpassword' style="width:120px;"/>
                     <div class="error-messages">
 
                     </div>
                 </div>
             </div>
-            <div class="mws-form-row">
+            <div class="mws-form-row" >
                 <label class="mws-form-label">重新输入新密码</label>
                 <div class="mws-form-item large">
-                    <input type="password" id='renewpassword' name='renewpassword' style="width:120px;"/>
+                    <input type="password" id='newpwd' name='renewpassword' style="width:120px;"/>
                     <div class="error-messages">
                         {% if form.renewpassword.errors %}
                             <label for="renewpassword" generated="true" class="error"
@@ -28,7 +28,8 @@
                 </div>
             </div>
         </div>
+    <button type="submit" >提交</button>
     </form>
 
-123
+
 </div>

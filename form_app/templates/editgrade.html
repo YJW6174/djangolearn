@@ -188,7 +188,9 @@
                 <th>英语</th>
                 <th>高数</th>
                 <th>大物</th>
-                <th>操作</th>
+                {% if usertype == 1%} 
+                    <th>操作</th>
+                {% endif %}
             </tr>
             </thead>
             <tbody>
@@ -200,11 +202,13 @@
                     <td>{{ i.grade1 }}</td>
                     <td>{{ i.grade2 }}</td>
                     <td>{{ i.grade3 }}</td>
-                    <td>
-                        <a href="#" class="del" data-i="{{ i.stuid }}">删除</a>
-                        |
-                        <a href="/index/altergrade" class="alter" data-i="{{ i.stuid }}">编辑</a>
-                    </td>
+                    {% if usertype == 1 %}
+                        <td>
+                            <a href="#" class="del" data-i="{{ i.stuid }}">删除</a>
+                            |
+                            <a href="/index/altergrade" class="alter" data-i="{{ i.stuid }}">编辑</a>
+                        </td>
+                    {% endif %}
                 </tr>
             {% endfor %}
 

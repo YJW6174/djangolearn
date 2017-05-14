@@ -48,8 +48,11 @@ def login(req):
             if user:
                 # 比较成功，跳转index
                 response = HttpResponseRedirect('/index/')
+                usertype = req.POST.get('user_type')
+                print 'usertype:' + usertype
                 # 将username写入浏览器cookie，失效时间为3600
-                response.set_cookie('username', username, 3600)
+                response.set_cookie('username', username, 360000)
+                response.set_cookie('usertype', usertype, 360000)
                 return response
             else:
                 return HttpResponseRedirect('/login/')
@@ -96,7 +99,7 @@ def addstudent(request):
             form.save()
     t = get_template('addstudent.html')
     c = RequestContext(request, locals())
-    return HttpResponse(t.render(c),{'username': username})
+    return HttpResponse(t.render(c), {'username': username})
 
 
 def viewstudent(req):
@@ -104,6 +107,7 @@ def viewstudent(req):
     delstuid = req.GET.get("del")
     editstuid = req.GET.get("edit")
     username = req.COOKIES.get('username', '')
+    usertype = req.COOKIES.get('usertype')
     if delstuid:  # 如果有delstuid 视作删除,这是 ajax传过来的请求做的处理
         stulist = student.objects.filter(stuid=delstuid).delete()
 
@@ -116,8 +120,8 @@ def viewstudent(req):
         stulist = student.objects.all().order_by('stuid')
 
     return render_to_response("viewstudent.html",
-                              context_instance=RequestContext(req, {"stulist": stulist ,'username': username}
-                                                            ))
+                              context_instance=RequestContext(req, {"stulist": stulist, 'username': username,
+                                                                    "usertype": usertype}))
 
 
 def editstudent(request):
@@ -151,8 +155,8 @@ def searchgrade(req):
 
     gradelist = grade.objects.filter(stuid=stuid).order_by('stuid')
     return render_to_response("searchgrade.html",
-                              context_instance=RequestContext(req, {"gradelist": gradelist, 'username': username}
-                                                              ))
+                              context_instance=RequestContext(req, {"gradelist": gradelist, 'username': username}))
+
 
 def editgrade(req):
     stuid = req.GET.get("stuid")
@@ -170,15 +174,13 @@ def editgrade(req):
     else:
         gradelist = grade.objects.all().order_by('stuid')
 
-    return render_to_response("editgrade.html",
-                              context_instance=RequestContext(req, {"gradelist": gradelist}
-                                                              ))
+    return render_to_response("editgrade.html", context_instance=RequestContext(req, {"gradelist": gradelist}))
 
 
 def altergrade(request):
     form = GradeForm
     c = RequestContext(request, locals())
-    username = req.COOKIES.get('username', '')
+    username = request.COOKIES.get('username', '')
 
     if request.method == 'POST':
         form = GradeForm(request.POST or None)
@@ -193,26 +195,31 @@ def altergrade(request):
 def viewclass(req):
     acaname = req.GET.get("acaname")
     username = req.COOKIES.get('username', '')
-
+    usertype = req.COOKIES.get('usertype', '')
     stulist = student.objects.filter(acaname=acaname)
-
-    return render_to_response("viewclass.html",
-                              context_instance=RequestContext(req, {"stulist": stulist, 'username': username}
-                                                              ))
+    return render_to_response("viewclass.html", context_instance=RequestContext(req, {"stulist": stulist,
+                                                                                      'username': username,
+                                                                                      'usertype': usertype}
+                                                                                ))
 
 
 def viewclassstu(req):
     acaname = req.GET.get("acaname")
     classnum = req.GET.get("classnum")
     username = req.COOKIES.get('username', '')
-
+    usertype = req.COOKIES.get('usertype', '')
     stulist = student.objects.filter(classnum=classnum, acaname=acaname)
-    return render_to_response("viewclassstu.html",
-                              context_instance=RequestContext(req, {"stulist": stulist, 'username': username}
-                                                              ))
+    return render_to_response("viewclassstu.html", context_instance=RequestContext(req, {"stulist": stulist,
+                                                                                         'username': username,
+                                                                                         'usertype': usertype}
+                                                                                   ))
 
 
 def changepsw(req):
-    username = req.COOKIES.get('username', '')
-
+    username = req.COOKIES.get('username')
+    print username
+    if req.method == 'POST':
+        newpwd = req.POST.get('newpwd')
+        UserForm.objects.filter(username=username).update(password=newpwd)
+        return render_to_response('login.html')
     return render_to_response("changepsw.html", {'username': username})
