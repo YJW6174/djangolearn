@@ -5,7 +5,6 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from django.template.loader import get_template
 
-
 from models import User
 # Create your views here.
 from .form import *
@@ -86,7 +85,8 @@ def share(req):
         uf = UserForm()
     return render_to_response('share.html', {'uf': uf})
 
-#添加学生记录
+
+# 添加学生记录
 def addstudent(request):
     username = request.COOKIES.get('username', '')
     form = StuForm()
@@ -96,21 +96,18 @@ def addstudent(request):
             form.save()
     t = get_template('addstudent.html')
     c = RequestContext(request, locals())
-    return HttpResponse(t.render(c))
+    return HttpResponse(t.render(c),{'username': username})
+
 
 def viewstudent(req):
-
     stuid = req.GET.get("stuid")
     delstuid = req.GET.get("del")
-    editstuid=req.GET.get("edit")
-
-
-
-
-    if delstuid: #如果有delstuid 视作删除,这是 ajax传过来的请求做的处理
+    editstuid = req.GET.get("edit")
+    username = req.COOKIES.get('username', '')
+    if delstuid:  # 如果有delstuid 视作删除,这是 ajax传过来的请求做的处理
         stulist = student.objects.filter(stuid=delstuid).delete()
 
-    elif stuid: #如果有stuid 视做查询,
+    elif stuid:  # 如果有stuid 视做查询,
         stulist = student.objects.filter(stuid=stuid).order_by('stuid')
     elif editstuid:
 
@@ -119,21 +116,22 @@ def viewstudent(req):
         stulist = student.objects.all().order_by('stuid')
 
     return render_to_response("viewstudent.html",
-                              context_instance=RequestContext(req, {"stulist": stulist}
-    ))
+                              context_instance=RequestContext(req, {"stulist": stulist ,'username': username}
+                                                            ))
+
 
 def editstudent(request):
-
-    form=StuForm
+    form = StuForm
     c = RequestContext(request, locals())
     if request.method == 'POST':
         form = StuForm(request.POST or None)
         if form.is_valid():
             form.save()
-            return render(request,'viewstudent.html')
+            return render(request, 'viewstudent.html')
 
     t = get_template('editstudent.html')
     return HttpResponse(t.render(c))
+
 
 def addgrade(request):
     username = request.COOKIES.get('username', '')
@@ -146,25 +144,25 @@ def addgrade(request):
     c = RequestContext(request, locals())
     return HttpResponse(t.render(c))
 
-def searchgrade(req):
 
+def searchgrade(req):
     stuid = req.GET.get("stuid")
+    username = req.COOKIES.get('username', '')
+
     gradelist = grade.objects.filter(stuid=stuid).order_by('stuid')
     return render_to_response("searchgrade.html",
-                              context_instance=RequestContext(req, {"gradelist": gradelist}
-    ))
-
+                              context_instance=RequestContext(req, {"gradelist": gradelist, 'username': username}
+                                                              ))
 
 def editgrade(req):
-
     stuid = req.GET.get("stuid")
     delstuid = req.GET.get("del")
-    alterstuid=req.GET.get("alter")
+    alterstuid = req.GET.get("alter")
 
-    if delstuid: #如果有delstuid 视作删除,这是 ajax传过来的请求做的处理
+    if delstuid:  # 如果有delstuid 视作删除,这是 ajax传过来的请求做的处理
         gradelist = grade.objects.filter(stuid=delstuid).delete()
 
-    elif stuid: #如果有stuid 视做查询,
+    elif stuid:  # 如果有stuid 视做查询,
         gradelist = grade.objects.filter(stuid=stuid).order_by('stuid')
     elif alterstuid:
 
@@ -174,41 +172,44 @@ def editgrade(req):
 
     return render_to_response("editgrade.html",
                               context_instance=RequestContext(req, {"gradelist": gradelist}
-    ))
+                                                              ))
 
 
 def altergrade(request):
-
-    form=GradeForm
+    form = GradeForm
     c = RequestContext(request, locals())
+    username = req.COOKIES.get('username', '')
+
     if request.method == 'POST':
         form = GradeForm(request.POST or None)
         if form.is_valid():
             form.save()
-            return render(request,'base.html')
+            return render(request, 'base.html')
 
     t = get_template('altergrade.html')
     return HttpResponse(t.render(c))
 
 
 def viewclass(req):
-
     acaname = req.GET.get("acaname")
+    username = req.COOKIES.get('username', '')
+
     stulist = student.objects.filter(acaname=acaname)
 
     return render_to_response("viewclass.html",
-                              context_instance=RequestContext(req, {"stulist": stulist}
-    ))
+                              context_instance=RequestContext(req, {"stulist": stulist, 'username': username}
+                                                              ))
+
 
 def viewclassstu(req):
-    acaname=req.GET.get("acaname")
+    acaname = req.GET.get("acaname")
     classnum = req.GET.get("classnum")
-    stulist = student.objects.filter(classnum=classnum,acaname=acaname)
+    username = req.COOKIES.get('username', '')
+
+    stulist = student.objects.filter(classnum=classnum, acaname=acaname)
     return render_to_response("viewclassstu.html",
-                              context_instance=RequestContext(req, {"stulist": stulist}
-    ))
-
-
+                              context_instance=RequestContext(req, {"stulist": stulist, 'username': username}
+                                                              ))
 
 
 def changepsw(req):

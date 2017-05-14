@@ -1,121 +1,163 @@
-<!DOCTYPE html>
-<html lang="en">
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{##}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>Document</title>#}
+{#</head>#}
+{#<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">#}
+{#<style>#}
+{#.index-bar {#}
+{#    text-align: center;#}
+{#    border-bottom: 1px solid #ccc;#}
+{#}#}
+{##}
+{#.index-block {#}
+{#    float: right;#}
+{#    padding-right: 12px;#}
+{#}#}
+{##}
+{#.index-btn {#}
+{#    float: right;#}
+{#}#}
+{##}
+{#.selection-bar {#}
+{#    width: 1000px;#}
+{#    margin: 0 auto;#}
+{#}#}
+{##}
+{#.content {#}
+{#    width: 1000px;#}
+{#    margin: 50px auto;#}
+{#}#}
+{##}
+{#.myform{#}
+{#    margin: 50px auto;#}
+{#    width: 1000px;#}
+{#}#}
+{#</style>#}
+{##}
+{#<body>#}
+{#    <p class="index-bar h1">#}
+{#        学生综合信息管理系统#}
+{#        <a href="http://127.0.0.1:8000/logout" class="index-btn btn btn-primary">退出 </a>#}
+{#        <span class="index-block h4">#}
+{#       	welcome ,{{ username }}#}
+{#       </span>#}
+{#    </p>#}
+{#    <div class="selection-bar">#}
+{#        <ul class="nav nav-pills" role="tablist">#}
+{#            <li role="presentation" class="active"><a href="#">主页</a></li>#}
+{#            <li role="presentation" class="dropdown">#}
+{#                <a id="drop4" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">#}
+{#          班级管理#}
+{#          <span class="caret"></span>#}
+{#        </a>#}
+{#                <ul id="menu1" class="dropdown-menu" aria-labelledby="drop4">#}
+{#                    <li><a href="viewclass">班级查询</a></li>#}
+{#                    <li role="separator" class="divider"></li>#}
+{#                    <li><a href="viewclassstu">学生查询</a></li>#}
+{##}
+{#                </ul>#}
+{#            </li>#}
+{#            <li role="presentation" class="dropdown">#}
+{#                <a id="drop5" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">#}
+{#          同学管理#}
+{#          <span class="caret"></span>#}
+{#        </a>#}
+{#                <ul id="menu2" class="dropdown-menu" aria-labelledby="drop5">#}
+{#                    <li><a href="viewstudent">查询</a></li>#}
+{#                    <li role="separator" class="divider"></li>#}
+{#                    <li><a href="addstudent">增加</a></li>#}
+{##}
+{#                </ul>#}
+{#            </li>#}
+{#            <li role="presentation" class="dropdown">#}
+{#                <a id="drop6" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">#}
+{#          互评管理#}
+{#          <span class="caret"></span>#}
+{#        </a>#}
+{#                <ul id="menu3" class="dropdown-menu" aria-labelledby="drop6">#}
+{#                    <li><a href="#">评分</a></li>#}
+{#                    <li role="separator" class="divider"></li>#}
+{#                    <li><a href="#">查看排名</a></li>#}
+{##}
+{#                </ul>#}
+{#            </li>#}
+{#            <li role="presentation" class="dropdown">#}
+{#                <a id="drop6" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">#}
+{#          成绩管理#}
+{#          <span class="caret"></span>#}
+{#        </a>#}
+{#                <ul id="menu3" class="dropdown-menu" aria-labelledby="drop6">#}
+{#                    <li><a href="searchgrade.html">成绩查询</a></li>#}
+{#                    <li role="separator" class="divider"></li>#}
+{#                    <li><a href="addgrade.html">录入成绩</a></li>#}
+{#                    <li role="separator" class="divider"></li>#}
+{#                    <li><a href="editgrade.html">成绩操作</a></li>#}
+{##}
+{##}
+{#                </ul>#}
+{#            </li>#}
+{#            <li role="presentation" class="dropdown">#}
+{#                <a id="drop6" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">#}
+{#          设置#}
+{#          <span class="caret"></span>#}
+{#        </a>#}
+{#                <ul id="menu3" class="dropdown-menu" aria-labelledby="drop6">#}
+{#                    <li><a href="changepsw.html">修改密码</a></li>#}
+{#                    <li role="separator" class="divider"></li>#}
+{#                    <li><a href="#">个人信息</a></li>#}
+{##}
+{#                </ul>#}
+{#            </li>#}
+{#        </ul>#}
+{#    </div>#}
+{##}
+{##}
+{# <form class="form-inline myform" action="" method="get">{% csrf_token %}#}
+{#        <div class="form-group">#}
+{#            <label for="academynumber">请输入学院号：</label>#}
+{#            <input type="text" class="form-control" id="academynumber" name="acaname" placeholder="如：01">#}
+{#            <label for="classnumber">请输入班级号：</label>#}
+{#            <input type="text" class="form-control" id="classnum" name="classnum" placeholder="如：01">#}
+{#        </div>#}
+{##}
+{#        <button type="submit" class="btn btn-default">查询</button>#}
+{#    </form>#}
+{##}
+{#<!-- 下面是表格 -->#}
+{#    <table class="table table-bordered">#}
+{#        <thead>#}
+{#            <tr>#}
+{#                <th>学号</th>#}
+{#                <th>姓名</th>#}
+{#                <th>性别</th>#}
+{##}
+{#            </tr>#}
+{#        </thead>#}
+{#        <tbody>#}
+{#            {% for i in stulist %}#}
+{#        <tr>#}
+{#            <td>{{ i.stuid}}</td>#}
+{#            <td>{{ i.username}}</td>#}
+{#            <td>{{ i.sex }}</td>#}
+{#        </tr>#}
+{#    {% endfor %}#}
+{##}
+{#        </tbody>#}
+{#    </table>#}
+{#</body>#}
+{#<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>#}
+{#<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>#}
+{##}
+{#</html>#}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-</head>
-<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<style>
-.index-bar {
-    text-align: center;
-    border-bottom: 1px solid #ccc;
-}
+{% extends 'base.html' %}
 
-.index-block {
-    float: right;
-    padding-right: 12px;
-}
+{% block content %}
 
-.index-btn {
-    float: right;
-}
-
-.selection-bar {
-    width: 1000px;
-    margin: 0 auto;
-}
-
-.content {
-    width: 1000px;
-    margin: 50px auto;
-}
-
-.myform{
-    margin: 50px auto;
-    width: 1000px;
-}
-</style>
-
-<body>
-    <p class="index-bar h1">
-        学生综合信息管理系统
-        <a href="http://127.0.0.1:8000/logout" class="index-btn btn btn-primary">退出 </a>
-        <span class="index-block h4">
-       	welcome ,{{ username }}
-       </span>
-    </p>
-    <div class="selection-bar">
-        <ul class="nav nav-pills" role="tablist">
-            <li role="presentation" class="active"><a href="#">主页</a></li>
-            <li role="presentation" class="dropdown">
-                <a id="drop4" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-          班级管理
-          <span class="caret"></span>
-        </a>
-                <ul id="menu1" class="dropdown-menu" aria-labelledby="drop4">
-                    <li><a href="viewclass">班级查询</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="viewclassstu">学生查询</a></li>
-
-                </ul>
-            </li>
-            <li role="presentation" class="dropdown">
-                <a id="drop5" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-          同学管理
-          <span class="caret"></span>
-        </a>
-                <ul id="menu2" class="dropdown-menu" aria-labelledby="drop5">
-                    <li><a href="viewstudent">查询</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="addstudent">增加</a></li>
-
-                </ul>
-            </li>
-            <li role="presentation" class="dropdown">
-                <a id="drop6" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-          互评管理
-          <span class="caret"></span>
-        </a>
-                <ul id="menu3" class="dropdown-menu" aria-labelledby="drop6">
-                    <li><a href="#">评分</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="#">查看排名</a></li>
-
-                </ul>
-            </li>
-            <li role="presentation" class="dropdown">
-                <a id="drop6" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-          成绩管理
-          <span class="caret"></span>
-        </a>
-                <ul id="menu3" class="dropdown-menu" aria-labelledby="drop6">
-                    <li><a href="searchgrade.html">成绩查询</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="addgrade.html">录入成绩</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="editgrade.html">成绩操作</a></li>
-
-
-                </ul>
-            </li>
-            <li role="presentation" class="dropdown">
-                <a id="drop6" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-          设置
-          <span class="caret"></span>
-        </a>
-                <ul id="menu3" class="dropdown-menu" aria-labelledby="drop6">
-                    <li><a href="changepsw.html">修改密码</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="#">个人信息</a></li>
-
-                </ul>
-            </li>
-        </ul>
-    </div>
-
-
- <form class="form-inline myform" action="" method="get">{% csrf_token %}
+    <form class="form-inline myform" action="" method="get">{% csrf_token %}
         <div class="form-group">
             <label for="academynumber">请输入学院号：</label>
             <input type="text" class="form-control" id="academynumber" name="acaname" placeholder="如：01">
@@ -126,29 +168,24 @@
         <button type="submit" class="btn btn-default">查询</button>
     </form>
 
-<!-- 下面是表格 -->
+    <!-- 下面是表格 -->
     <table class="table table-bordered">
         <thead>
-            <tr>
-                <th>学号</th>
-                <th>姓名</th>
-                <th>性别</th>
+        <tr>
+            <th>学号</th>
+            <th>姓名</th>
+            <th>性别</th>
 
-            </tr>
+        </tr>
         </thead>
         <tbody>
-            {% for i in stulist %}
-        <tr>
-            <td>{{ i.stuid}}</td>
-            <td>{{ i.username}}</td>
-            <td>{{ i.sex }}</td>
-        </tr>
-    {% endfor %}
-
+        {% for i in stulist %}
+            <tr>
+                <td>{{ i.stuid }}</td>
+                <td>{{ i.username }}</td>
+                <td>{{ i.sex }}</td>
+            </tr>
+        {% endfor %}
         </tbody>
     </table>
-</body>
-<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-</html>
+{% endblock %}

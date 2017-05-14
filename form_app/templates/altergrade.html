@@ -1,11 +1,11 @@
-{% extends 'base.html'%}
+{% extends 'base.html' %}
 {% block title %}修改学生成绩{% endblock %}
 
 {% block content %}
 
-<div class="content">
+    <div class="content">
         <form action="" method="POST">{% csrf_token %}
-            {{form.as_p}}
+            {{ form.as_p }}
             <button type="submit" value="Save" class="btn btn-default">AITER</button>
         </form>
     </div>
